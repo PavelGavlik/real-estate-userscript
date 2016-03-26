@@ -5,4 +5,4 @@
 
 ## Installation
 
-Use [Greasemonkey](https://addons.mozilla.org/cs/firefox/addon/greasemonkey/) for Firefox or [Tampermonkey](https://tampermonkey.net/) for other browsers
+Use [Greasemonkey](https://addons.mozilla.org/cs/firefox/addon/greasemonkey/) for Firefox or [Tampermonkey](https://tampermonkey.net/) for other browsers. Check the code before using it. You have been warned.
