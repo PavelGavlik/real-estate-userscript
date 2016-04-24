@@ -11,6 +11,11 @@ const viewSelector = '.transcluded-content, .panel-container'
 const addressSelector = 'span.locality, span.location, .desc > h3 > a'
 const addressRegexp = /^([^;]+Praha)[^;]+$/
 
+const date = new Date()
+const idosDate = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
+const idosTime = '8:30'
+const idosDestination = 'Svornosti 2, Praha'
+
 // load Google Maps API (if not already loaded)
 if (true) {
   const script = document.createElement('script')
@@ -35,7 +40,7 @@ const transportLink = (origin, destination) => {
     }, res => console.log(res.routes[0]))
     called = true
   }
-  return`<a target="_blank" href="http://jizdnirady.idnes.cz/vlakyautobusymhd/spojeni/?f=${encodeURIComponent(origin)}&t=${encodeURIComponent(destination)}&date=31.3.2016&time=8:30">${destination}</a>`;
+  return`<a target="_blank" href="http://jizdnirady.idnes.cz/vlakyautobusymhd/spojeni/?f=${encodeURIComponent(origin)}&t=${encodeURIComponent(destination)}&date=${idosDate}&time=${idosTime}">${destination}</a>`;
 }
 
 const addLinks = () => {
@@ -43,8 +48,14 @@ const addLinks = () => {
   console.log('found', addressElements.length, 'addresses')
 
   Array.prototype.slice.call(addressElements)
-  .filter(el => { const address = el.innerHTML.match(addressRegexp); return address && address[1] ? el : null; })
-  .forEach(el => { const shortAddress = el.innerHTML.match(addressRegexp)[1]; el.innerHTML += `; Dojezd na: ${transportLink(shortAddress, 'Svornosti 2, Praha')}`; })
+  .filter(el => {
+    const address = el.innerHTML.match(addressRegexp);
+    return address && address[1] ? el : null;
+  })
+  .forEach(el => {
+    const shortAddress = el.innerHTML.match(addressRegexp)[1];
+    el.innerHTML += `; Dojezd na: ${transportLink(shortAddress, idosDestination)}`;
+  })
 }
 
 const target = document.querySelector(viewSelector);
